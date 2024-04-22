@@ -22,6 +22,7 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -62,7 +63,7 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
     {
         return $this->getKey();
     }
-        
+
     /**
      * getJWTCustomClaims
      *
