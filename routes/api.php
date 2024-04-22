@@ -21,7 +21,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [App\Http\Controllers\Api\Admin\LoginController::class, 'index']);
 
     //group route with middleware "auth"
-    Route::group(['middleware' => 'auth:api'], function() {
+    Route::group(['middleware' => 'auth:api'], function () {
 
         //data user
         Route::get('/user', [App\Http\Controllers\Api\Admin\LoginController::class, 'getUser']);
@@ -31,16 +31,16 @@ Route::prefix('admin')->group(function () {
 
         //logout
         Route::post('/logout', [App\Http\Controllers\Api\Admin\LoginController::class, 'logout']);
-    
+
         //Tags
         Route::apiResource('/tags', App\Http\Controllers\Api\Admin\TagController::class);
 
         //Category
         Route::apiResource('/categories', App\Http\Controllers\Api\Admin\CategoryController::class);
-        
+
         //Poss
         Route::apiResource('/posts', App\Http\Controllers\Api\Admin\PostController::class);
-        
+
         //Menus
         Route::apiResource('/menus', App\Http\Controllers\Api\Admin\MenuController::class);
 
@@ -53,7 +53,6 @@ Route::prefix('admin')->group(function () {
         //dashboard
         Route::get('/dashboard', [App\Http\Controllers\Api\Admin\DashboardController::class, 'index']);
     });
-
 });
 
 //group route with prefix "web"
@@ -94,5 +93,14 @@ Route::prefix('web')->group(function () {
 
     //index sliders
     Route::get('/sliders', [App\Http\Controllers\Api\Web\SliderController::class, 'index']);
+});
 
+Route::prefix('assessment/admin')->group(function () {
+
+    Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+
+        Route::apiResource('/user', App\Http\Controllers\Api\Assessment\Admin\UserController::class)->middleware('restrictRole:admin');
+    });
 });
