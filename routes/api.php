@@ -95,12 +95,26 @@ Route::prefix('web')->group(function () {
     Route::get('/sliders', [App\Http\Controllers\Api\Web\SliderController::class, 'index']);
 });
 
-Route::prefix('assessment/admin')->group(function () {
+Route::prefix('assessment')->group(function () {
 
     Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
 
+    Route::get('/user_apk', [App\Http\Controllers\Api\Assessment\Opd\UserApkController::class, 'index']);
+    Route::get('/jenis_kegiatan', [App\Http\Controllers\Api\Assessment\Opd\JenisKegiatanController::class, 'index']);
+    Route::get('/status', [App\Http\Controllers\Api\Assessment\Assessor\StatusController::class, 'index']);
+
     Route::group(['middleware' => 'auth:sanctum'], function () {
 
-        Route::apiResource('/user', App\Http\Controllers\Api\Assessment\Admin\UserController::class)->middleware('restrictRole:admin');
+        Route::prefix('admin')->group(function () {
+
+            Route::apiResource('/user', App\Http\Controllers\Api\Assessment\Admin\UserController::class)->middleware('restrictRole:admin');
+            Route::apiResource('/opd', App\Http\Controllers\Api\Assessment\Admin\OpdController::class)->middleware('restrictRole:admin');
+        });
+
+        Route::prefix('opd')->group(function () {
+
+            Route::apiResource('/developer', App\Http\Controllers\Api\Assessment\Opd\DeveloperController::class)->middleware('restrictRole:opd');
+            Route::apiResource('/programer', App\Http\Controllers\Api\Assessment\Opd\ProgramerController::class)->middleware('restrictRole:opd');
+        });
     });
 });

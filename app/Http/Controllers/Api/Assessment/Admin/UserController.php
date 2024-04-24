@@ -15,11 +15,11 @@ class UserController extends Controller
     {
         $getData = User::all();
 
-        if ($getData) {
-            return response()->json(new UserResource(true, "Success", $getData), 200);
+        if ($getData->isEmpty()) {
+            return response()->json(new UserResource(false, "No Content", null), 204);
         }
 
-        return response()->json(new UserResource(false, "Empty", null), 400);
+        return response()->json(new UserResource(true, "Success", $getData), 200);
     }
 
     public function store(Request $request)

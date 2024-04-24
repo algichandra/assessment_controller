@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Apr 2024 pada 04.59
+-- Waktu pembuatan: 24 Apr 2024 pada 06.51
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -60,6 +60,23 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `developers`
+--
+
+CREATE TABLE `developers` (
+  `id` int(11) NOT NULL,
+  `nama_perusahaan` varchar(150) NOT NULL,
+  `nama_pj` varchar(150) NOT NULL,
+  `alamat` text NOT NULL,
+  `telp` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -123,6 +140,30 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `opds`
+--
+
+CREATE TABLE `opds` (
+  `id` int(11) NOT NULL,
+  `opd` varchar(150) NOT NULL,
+  `alamat` text NOT NULL,
+  `telp` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `opds`
+--
+
+INSERT INTO `opds` (`id`, `opd`, `alamat`, `telp`, `email`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Dinas ABC', 'Jl. Alfabet ABC', '0251-5567-223', 'dinasabc@gmail.com', 2, '2024-04-23 01:44:50', '2024-04-23 18:27:45');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `password_resets`
 --
 
@@ -156,7 +197,7 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\User', 1, 'my-token', '23c363cab62c647698caf2de93bfdf9fb6c6b88e1ee07e0aaa8c6d09e832348c', '[\"*\"]', '2024-04-18 20:09:48', NULL, '2024-04-18 18:38:53', '2024-04-18 20:09:48'),
+(1, 'App\\Models\\User', 1, 'my-token', '23c363cab62c647698caf2de93bfdf9fb6c6b88e1ee07e0aaa8c6d09e832348c', '[\"*\"]', '2024-04-23 19:15:49', NULL, '2024-04-18 18:38:53', '2024-04-23 19:15:49'),
 (2, 'App\\Models\\User', 2, 'my-token', '1088a838c4f5f2bddd80ef407946bbab84012f1f40c4a9b60905bf0ab6b0d7f1', '[\"*\"]', NULL, NULL, '2024-04-20 00:13:46', '2024-04-20 00:13:46'),
 (3, 'App\\Models\\User', 1, 'my-token', 'e2c84e2bcd76bda4e8c861e73e3f987df4f0bf8165764c4f228ef5c6fc0b03d2', '[\"*\"]', NULL, NULL, '2024-04-21 02:09:28', '2024-04-21 02:09:28'),
 (4, 'App\\Models\\User', 1, 'my-token', 'c19eb326b669569e03e7b0796aba30b430088ae3e6150582f02de2abeb65cc07', '[\"*\"]', NULL, NULL, '2024-04-21 05:40:22', '2024-04-21 05:40:22'),
@@ -174,7 +215,21 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (16, 'App\\Models\\User', 2, 'my-token', '3c11f484248f17153ffadba013101c1bb40b1c6b79f57e64f0371c37a018be27', '[\"*\"]', NULL, NULL, '2024-04-21 19:08:31', '2024-04-21 19:08:31'),
 (17, 'App\\Models\\User', 3, 'my-token', 'd1e77e6b71fc45805dcaa56a2056aeda6b97998e6946c813274824dbf308b5e5', '[\"*\"]', NULL, NULL, '2024-04-21 19:08:55', '2024-04-21 19:08:55'),
 (18, 'App\\Models\\User', 3, 'my-token', 'cc736046137f257b514eb78392e2e8d656c5a07a0d2737d6344bf823c1bc0ddd', '[\"*\"]', NULL, NULL, '2024-04-21 19:24:32', '2024-04-21 19:24:32'),
-(19, 'App\\Models\\User', 2, 'my-token', '814c2c4ac70df91d0773caf7d324269fab47b13d4c142b592e139cdf4aaec2b3', '[\"*\"]', NULL, NULL, '2024-04-21 19:24:59', '2024-04-21 19:24:59');
+(19, 'App\\Models\\User', 2, 'my-token', '814c2c4ac70df91d0773caf7d324269fab47b13d4c142b592e139cdf4aaec2b3', '[\"*\"]', NULL, NULL, '2024-04-21 19:24:59', '2024-04-21 19:24:59'),
+(20, 'App\\Models\\User', 1, 'my-token', '37fef7801b0eee02595515986a2fb1f02ed160853db2e3dc2097eeb2ea83bfe0', '[\"*\"]', NULL, NULL, '2024-04-21 20:39:10', '2024-04-21 20:39:10'),
+(21, 'App\\Models\\User', 3, 'my-token', '4a5fdcbffe30597aa0bc7af12885b6980bbd027e3fc6957bcc6768e39c101af4', '[\"*\"]', NULL, NULL, '2024-04-21 21:02:05', '2024-04-21 21:02:05'),
+(22, 'App\\Models\\User', 3, 'my-token', '71fcb2b7ab0823b3dccd446fc65eaea94fa8aa8a0e8cf574a98e9ee07e24f085', '[\"*\"]', NULL, NULL, '2024-04-21 21:02:10', '2024-04-21 21:02:10'),
+(23, 'App\\Models\\User', 1, 'my-token', '60367df2b782454b6c0b53a4c4d2951c1c2cc747b2ef32674a7e4526b4eee879', '[\"*\"]', NULL, NULL, '2024-04-21 23:37:52', '2024-04-21 23:37:52'),
+(24, 'App\\Models\\User', 1, 'my-token', 'f7d7927c9675f1d04ca14060ead623befc9443156ac67be2c02976699e027426', '[\"*\"]', NULL, NULL, '2024-04-21 23:37:55', '2024-04-21 23:37:55'),
+(25, 'App\\Models\\User', 1, 'my-token', '2f04a28b091bee55095efa5c6d55ecf9e86e57e659ca49f9a432b090a16977f5', '[\"*\"]', NULL, NULL, '2024-04-21 23:40:20', '2024-04-21 23:40:20'),
+(26, 'App\\Models\\User', 1, 'my-token', '8952d6c01fa62af58f8450250cff07d4263273a2f0e3d4de5db9030bdc8fcad2', '[\"*\"]', NULL, NULL, '2024-04-21 23:47:27', '2024-04-21 23:47:27'),
+(27, 'App\\Models\\User', 1, 'my-token', 'bb4f55b6ba27c4186054f1dd2433c1152fb37b3716910c95736176ecf0eb6a91', '[\"*\"]', NULL, NULL, '2024-04-21 23:47:29', '2024-04-21 23:47:29'),
+(28, 'App\\Models\\User', 1, 'my-token', '2f28b32c17a6461c12e3b873f4b5ff4eb1202416917fcc0d91d1594b06fa4fce', '[\"*\"]', NULL, NULL, '2024-04-21 23:47:32', '2024-04-21 23:47:32'),
+(29, 'App\\Models\\User', 1, 'my-token', 'dc2612d85765b588c153a14d22549d3b9da4eda76527309d18461b5442826441', '[\"*\"]', NULL, NULL, '2024-04-21 23:49:51', '2024-04-21 23:49:51'),
+(30, 'App\\Models\\User', 1, 'my-token', '31505717b89eb1f47389c8a17af6119c616b3bf37ee3112054b677d253465e83', '[\"*\"]', NULL, NULL, '2024-04-21 23:50:20', '2024-04-21 23:50:20'),
+(31, 'App\\Models\\User', 1, 'my-token', '0b8c6765435ce35b3bda9f6c006a36a990491b597bb4049647923e1556005357', '[\"*\"]', NULL, NULL, '2024-04-21 23:50:49', '2024-04-21 23:50:49'),
+(32, 'App\\Models\\User', 1, 'my-token', '55c4c64843766db4ef09466dbe99edc2b93e9386332329e85b84a201e6a2dac3', '[\"*\"]', NULL, NULL, '2024-04-21 23:51:26', '2024-04-21 23:51:26'),
+(33, 'App\\Models\\User', 2, 'my-token', '7e952157c7259b3f991d634db028b2572370bfaa045e957a5448ef5aca3758b2', '[\"*\"]', '2024-04-23 21:43:57', NULL, '2024-04-23 20:07:12', '2024-04-23 21:43:57');
 
 -- --------------------------------------------------------
 
@@ -220,6 +275,29 @@ CREATE TABLE `post_tag` (
 INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 (1, 3),
 (1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `programers`
+--
+
+CREATE TABLE `programers` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(150) NOT NULL,
+  `alamat` text NOT NULL,
+  `telp` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `programers`
+--
+
+INSERT INTO `programers` (`id`, `nama`, `alamat`, `telp`, `email`, `created_at`, `updated_at`) VALUES
+(1, 'Aul The Programer', 'Tajur komplek pakuan 2 sebrang dokter juliana', '0887264', 'aul@gmail.com', '2024-04-23 21:36:55', '2024-04-23 21:36:55');
 
 -- --------------------------------------------------------
 
@@ -312,6 +390,12 @@ ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `developers`
+--
+ALTER TABLE `developers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -328,6 +412,12 @@ ALTER TABLE `menus`
 -- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `opds`
+--
+ALTER TABLE `opds`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -350,6 +440,12 @@ ALTER TABLE `personal_access_tokens`
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `posts_slug_unique` (`slug`);
+
+--
+-- Indeks untuk tabel `programers`
+--
+ALTER TABLE `programers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `sliders`
@@ -388,6 +484,12 @@ ALTER TABLE `comments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `developers`
+--
+ALTER TABLE `developers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -406,16 +508,28 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT untuk tabel `opds`
+--
+ALTER TABLE `opds`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `programers`
+--
+ALTER TABLE `programers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `sliders`
