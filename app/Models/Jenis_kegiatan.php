@@ -13,4 +13,9 @@ class Jenis_kegiatan extends Model
         'jenis_kegiatan'
 
     ];
+
+    public function apk()
+    {
+        return $this->hasMany(Apk::class);
+    }
 }

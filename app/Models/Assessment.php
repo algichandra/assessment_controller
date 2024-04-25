@@ -5,16 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Programer extends Model
+class Assessment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nama', 'alamat', 'telp', 'email'
+        'apk_id', 'status_id'
     ];
 
     public function apk()
     {
         return $this->belongsTo(Apk::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

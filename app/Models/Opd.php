@@ -17,4 +17,9 @@ class Opd extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function apk()
+    {
+        return $this->hasMany(Apk::class);
+    }
 }

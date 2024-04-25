@@ -12,4 +12,9 @@ class User_apk extends Model
     protected $fillable = [
         'pengguna_apk'
     ];
+
+    public function apk()
+    {
+        return $this->hasMany(Apk::class);
+    }
 }

@@ -67,7 +67,9 @@ class OpdController extends Controller
 
     public function show($id)
     {
-        $getData = Opd::whereId($id)->first();
+        $getData = Opd::with('user')->when(request()->q, function ($query) {
+            $query->where('opd', 'like', '%' . request()->q . '%');
+        })->whereId($id)->first();
 
         if ($getData) {
             return response()->json(new DefaultResource(true, 'Success', $getData), 200);

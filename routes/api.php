@@ -114,7 +114,14 @@ Route::prefix('assessment')->group(function () {
         Route::prefix('opd')->group(function () {
 
             Route::apiResource('/developer', App\Http\Controllers\Api\Assessment\Opd\DeveloperController::class)->middleware('restrictRole:opd');
+
             Route::apiResource('/programer', App\Http\Controllers\Api\Assessment\Opd\ProgramerController::class)->middleware('restrictRole:opd');
+
+            Route::apiResource('/aplikasi', App\Http\Controllers\Api\Assessment\Opd\ApkController::class)->middleware('restrictRole:opd');
+            Route::put('/aplikasi/update/{apk}', [App\Http\Controllers\Api\Assessment\Opd\ApkController::class, 'update']);
+            Route::delete('/aplikasi/delete/{apk}', [App\Http\Controllers\Api\Assessment\Opd\ApkController::class, 'destroy']);
+
+            Route::apiResource('/assessment', App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class);
         });
     });
 });

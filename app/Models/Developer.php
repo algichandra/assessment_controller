@@ -12,4 +12,9 @@ class Developer extends Model
     protected $fillable = [
         'nama_perusahaan', 'nama_pj', 'alamat', 'telp', 'email'
     ];
+
+    public function apk()
+    {
+        return $this->belongsTo(Apk::class);
+    }
 }

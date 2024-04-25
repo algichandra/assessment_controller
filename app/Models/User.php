@@ -56,7 +56,7 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
 
     public function opd()
     {
-        return $this->belongsTo(Opd::class);
+        return $this->hasOne(Opd::class);
     }
     /**
      * getJWTIdentifier

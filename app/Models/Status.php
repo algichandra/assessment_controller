@@ -12,4 +12,9 @@ class Status extends Model
     protected $fillable = [
         'status'
     ];
+
+    public function assessment()
+    {
+        return $this->hasMany(Assessment::class);
+    }
 }
