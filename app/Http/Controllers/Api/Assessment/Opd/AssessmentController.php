@@ -36,7 +36,7 @@ class AssessmentController extends Controller
         }
 
         $getData = Assessment::where([
-            'apk_id' => $request->apk_id,
+            'apk_id'    => $request->apk_id,
             'status_id' => $request->status_id
         ])->get();
 
@@ -45,7 +45,7 @@ class AssessmentController extends Controller
         }
 
         $data = Assessment::create([
-            'apk_id' => $request->apk_id,
+            'apk_id'    => $request->apk_id,
             'status_id' => $request->status_id,
         ]);
 

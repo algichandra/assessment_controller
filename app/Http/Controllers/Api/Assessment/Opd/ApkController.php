@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DefaultResource;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -30,9 +31,9 @@ class ApkController extends Controller
 
         $validator = Validator::make($request->all(), [
             'nama_apk'          => ['required', 'string', 'max:150'],
-            'nama_kegiatan'     => ['nullable', 'string'],
+            'nama_kegiatan'     => ['nullable', 'string', 'max:150'],
             'thn_anggaran'      => ['nullable', 'string', 'max:15'],
-            'kegiatan_dpa'      => ['required', 'string', 'max:30'],
+            'kegiatan_dpa'      => ['required', Rule::in(['dpa', 'non_dpa'])],
             'cttan_dpa'         => ['nullable', 'string'],
             'pj'                => ['required', 'string', 'max:150'],
             'opd_id'            => ['required', 'integer'],
@@ -101,9 +102,9 @@ class ApkController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_apk'          => ['required', 'string', 'max:150'],
-            'nama_kegiatan'     => ['nullable', 'string'],
+            'nama_kegiatan'     => ['nullable', 'string', 'max:150'],
             'thn_anggaran'      => ['nullable', 'string', 'max:15'],
-            'kegiatan_dpa'      => ['required', 'string', 'max:30'],
+            'kegiatan_dpa'      => ['required', Rule::in(['dpa', 'non_dpa'])],
             'cttan_dpa'         => ['nullable', 'string'],
             'pj'                => ['required', 'string', 'max:150'],
             'opd_id'            => ['required', 'integer'],

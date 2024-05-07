@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Apr 2024 pada 06.51
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Generation Time: May 07, 2024 at 09:45 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,58 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `categories`
+-- Table structure for table `apks`
+--
+
+CREATE TABLE `apks` (
+  `id` int(11) NOT NULL,
+  `nama_apk` varchar(150) NOT NULL,
+  `nama_kegiatan` varchar(150) DEFAULT NULL,
+  `thn_anggaran` varchar(15) DEFAULT NULL,
+  `kegiatan_dpa` enum('dpa','non_dpa') NOT NULL,
+  `cttan_dpa` text DEFAULT NULL,
+  `pj` varchar(150) NOT NULL,
+  `opd_id` int(11) NOT NULL,
+  `user_apk_id` int(11) NOT NULL,
+  `jenis_kegiatan_id` int(11) NOT NULL,
+  `developer_id` int(11) NOT NULL,
+  `programer_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `apks`
+--
+
+INSERT INTO `apks` (`id`, `nama_apk`, `nama_kegiatan`, `thn_anggaran`, `kegiatan_dpa`, `cttan_dpa`, `pj`, `opd_id`, `user_apk_id`, `jenis_kegiatan_id`, `developer_id`, `programer_id`, `created_at`, `updated_at`) VALUES
+(1, 'Website Uji Coba', NULL, NULL, 'dpa', NULL, 'Orang', 1, 1, 1, 1, 1, '2024-04-24 21:25:28', '2024-04-24 21:25:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assessments`
+--
+
+CREATE TABLE `assessments` (
+  `id` int(11) NOT NULL,
+  `apk_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `assessments`
+--
+
+INSERT INTO `assessments` (`id`, `apk_id`, `status_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2024-04-25 00:24:59', '2024-04-25 00:24:59');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -37,7 +88,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `image`, `name`, `slug`, `created_at`, `updated_at`) VALUES
@@ -48,7 +99,7 @@ INSERT INTO `categories` (`id`, `image`, `name`, `slug`, `created_at`, `updated_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -64,7 +115,7 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `developers`
+-- Table structure for table `developers`
 --
 
 CREATE TABLE `developers` (
@@ -81,7 +132,30 @@ CREATE TABLE `developers` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `dokumens`
+--
+
+CREATE TABLE `dokumens` (
+  `id` int(11) NOT NULL,
+  `nama_dok` varchar(150) NOT NULL,
+  `dok` varchar(250) NOT NULL,
+  `assessment_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dokumens`
+--
+
+INSERT INTO `dokumens` (`id`, `nama_dok`, `dok`, `assessment_id`, `created_at`, `updated_at`) VALUES
+(1, 'Test', 'acn1M3gOLX5BrkOf8wzRwWoEtRNbktaFo54yWeSG.pdf', 1, '2024-04-29 00:36:18', '2024-04-29 00:36:18'),
+(2, 'Wkwkwk Anjg', 'G3CFM3WnLDdPote59bs7F92zl4RrEglbv3fBccpT.pdf', 1, '2024-04-29 00:38:19', '2024-04-29 01:13:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -97,7 +171,57 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menus`
+-- Table structure for table `hosting_sub_domains`
+--
+
+CREATE TABLE `hosting_sub_domains` (
+  `id` int(11) NOT NULL,
+  `collocation_server` enum('ya','tidak') NOT NULL,
+  `hosting` enum('ya','tidak') NOT NULL,
+  `sub_domain` enum('ya','tidak') NOT NULL,
+  `nama_subdomain` varchar(50) NOT NULL,
+  `cttan_collock_server` text DEFAULT NULL,
+  `cttan_hosting` text DEFAULT NULL,
+  `cttan_sub_domain` text DEFAULT NULL,
+  `assessment_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hosting_sub_domains`
+--
+
+INSERT INTO `hosting_sub_domains` (`id`, `collocation_server`, `hosting`, `sub_domain`, `nama_subdomain`, `cttan_collock_server`, `cttan_hosting`, `cttan_sub_domain`, `assessment_id`, `created_at`, `updated_at`) VALUES
+(1, 'ya', 'tidak', 'ya', 'Test', NULL, NULL, NULL, 1, '2024-04-28 20:12:15', '2024-04-28 20:12:15'),
+(2, 'ya', 'tidak', 'ya', 'test 2 anjay', 'wkwkwk', 'anjaya', 'wejhoiehrwq', 1, '2024-04-28 20:16:24', '2024-04-28 20:18:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jenis_kegiatans`
+--
+
+CREATE TABLE `jenis_kegiatans` (
+  `id` int(11) NOT NULL,
+  `jenis_kegiatan` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jenis_kegiatans`
+--
+
+INSERT INTO `jenis_kegiatans` (`id`, `jenis_kegiatan`, `created_at`, `updated_at`) VALUES
+(1, 'Pembangunan', '2024-04-24 07:46:12', '2024-04-24 07:46:12'),
+(2, 'Pengembangan', '2024-04-24 07:46:12', '2024-04-24 07:46:12'),
+(3, 'Pemeliharaan', '2024-04-24 07:46:12', '2024-04-24 07:46:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menus`
 --
 
 CREATE TABLE `menus` (
@@ -111,7 +235,7 @@ CREATE TABLE `menus` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -121,7 +245,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -140,7 +264,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `opds`
+-- Table structure for table `opds`
 --
 
 CREATE TABLE `opds` (
@@ -155,7 +279,7 @@ CREATE TABLE `opds` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `opds`
+-- Dumping data for table `opds`
 --
 
 INSERT INTO `opds` (`id`, `opd`, `alamat`, `telp`, `email`, `user_id`, `created_at`, `updated_at`) VALUES
@@ -164,7 +288,7 @@ INSERT INTO `opds` (`id`, `opd`, `alamat`, `telp`, `email`, `user_id`, `created_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -176,7 +300,94 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `personal_access_tokens`
+-- Table structure for table `penilaian_tata_kelolas`
+--
+
+CREATE TABLE `penilaian_tata_kelolas` (
+  `id` int(11) NOT NULL,
+  `penilaian_dok_kak_tor` enum('sesuai','tidak') NOT NULL,
+  `penilaian_laporan_dpa` enum('sesuai','tidak') NOT NULL,
+  `penilaian_sk_pengelola_apk` enum('sesuai','tidak') NOT NULL,
+  `penilaian_sk_helpdesk_apk` enum('sesuai','tidak') NOT NULL,
+  `penilaian_laporan_akhir` enum('sesuai','tidak') NOT NULL,
+  `penilaian_sop` enum('sesuai','tidak') NOT NULL,
+  `penilaian_panduan_apk` enum('sesuai','tidak') NOT NULL,
+  `penilaian_link_video_apk` enum('sesuai','tidak') NOT NULL,
+  `penilaian_panduan_apkserver` enum('sesuai','tidak') NOT NULL,
+  `penilaian_dok_mnjresiko` enum('sesuai','tidak') NOT NULL,
+  `penilaian_dok_api` enum('sesuai','tidak') NOT NULL,
+  `penilaian_file_scapk` enum('sesuai','tidak') NOT NULL,
+  `cttan_penilaian_kak_tor` text DEFAULT NULL,
+  `cttan_penilaian_lap_awal` text DEFAULT NULL,
+  `cttan_penilaian_sk_pengelola_apk` text DEFAULT NULL,
+  `cttan_penilaian_sk_helpdesk_apk` text DEFAULT NULL,
+  `cttan_penilaian_lap_akhir` text DEFAULT NULL,
+  `cttan_penilaian_sop` text DEFAULT NULL,
+  `cttan_penilaian_pduan_pnglola` text DEFAULT NULL,
+  `cttan_penilaian_vid_tutor_apk` text DEFAULT NULL,
+  `cttan_penilaian_pand_apkserver` text DEFAULT NULL,
+  `cttan_penilaian_manej_resiko` text DEFAULT NULL,
+  `cttan_penilaian_dok_api` text DEFAULT NULL,
+  `cttan_penilaian_source_code` text DEFAULT NULL,
+  `tata_kelola_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `penilaian_tata_kelolas`
+--
+
+INSERT INTO `penilaian_tata_kelolas` (`id`, `penilaian_dok_kak_tor`, `penilaian_laporan_dpa`, `penilaian_sk_pengelola_apk`, `penilaian_sk_helpdesk_apk`, `penilaian_laporan_akhir`, `penilaian_sop`, `penilaian_panduan_apk`, `penilaian_link_video_apk`, `penilaian_panduan_apkserver`, `penilaian_dok_mnjresiko`, `penilaian_dok_api`, `penilaian_file_scapk`, `cttan_penilaian_kak_tor`, `cttan_penilaian_lap_awal`, `cttan_penilaian_sk_pengelola_apk`, `cttan_penilaian_sk_helpdesk_apk`, `cttan_penilaian_lap_akhir`, `cttan_penilaian_sop`, `cttan_penilaian_pduan_pnglola`, `cttan_penilaian_vid_tutor_apk`, `cttan_penilaian_pand_apkserver`, `cttan_penilaian_manej_resiko`, `cttan_penilaian_dok_api`, `cttan_penilaian_source_code`, `tata_kelola_id`, `created_at`, `updated_at`) VALUES
+(1, 'sesuai', 'tidak', 'sesuai', 'sesuai', 'sesuai', 'tidak', 'tidak', 'tidak', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'wakodjowrijw', 'weihwioefadsd', 'scfdishfoewf', 'asdfghjklpoeti', 'wihincwoiuawr b', 'jewktnewk feewrc', 'asojdfoewfj bshdiweie nceoiwfniweofn', NULL, NULL, 'fioweh sdncsaoidfj banyak buku', 'ieifewh cttan_penilaian_dok_api cttan_penilaian_dok_api', 'ejrgjer', 1, '2024-05-06 18:28:42', '2024-05-06 18:28:42'),
+(3, 'sesuai', 'tidak', 'sesuai', 'sesuai', 'sesuai', 'tidak', 'tidak', 'tidak', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'wakodjowrijw', 'weihwioefadsd', 'scfdishfoewf', 'asdfghjklpoeti', 'wihincwoiuawr b', 'jewktnewk feewrc', 'asojdfoewfj bshdiweie nceoiwfniweofn', 'wanjir', 'wiwiwi', 'fioweh sdncsaoidfj banyak buku', 'ieifewh cttan_penilaian_dok_api cttan_penilaian_dok_api', 'ejrgjer', 1, '2024-05-06 18:40:28', '2024-05-06 18:40:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penilaian_ui_uxes`
+--
+
+CREATE TABLE `penilaian_ui_uxes` (
+  `id` int(11) NOT NULL,
+  `penilaian_warna` enum('sesuai','tidak') NOT NULL,
+  `penilaian_logo_kotabgr` enum('sesuai','tidak') NOT NULL,
+  `penilaian_logo_apk` enum('sesuai','tidak') NOT NULL,
+  `penilaian_copyright_pemkot` enum('sesuai','tidak') NOT NULL,
+  `penilaian_info_identitasopd` enum('sesuai','tidak') NOT NULL,
+  `penilaian_info_apk` enum('sesuai','tidak') NOT NULL,
+  `penilaian_faq` enum('sesuai','tidak') NOT NULL,
+  `penilaian_user_friendly` enum('sesuai','tidak') NOT NULL,
+  `penilaian_fungsionalitas` enum('sesuai','tidak') NOT NULL,
+  `penilaian_dashboard` enum('sesuai','tidak') NOT NULL,
+  `penilaian_log_user` enum('sesuai','tidak') NOT NULL,
+  `cttan_penilaian_warna` text DEFAULT NULL,
+  `cttan_penilaian_logo_kota` text DEFAULT NULL,
+  `cttan_penilaian_logo_apk` text DEFAULT NULL,
+  `cttan_penilaian_cr_pemkot` text DEFAULT NULL,
+  `cttan_penilaian_identitas_odp` text DEFAULT NULL,
+  `cttan_penilaian_info_apk` text DEFAULT NULL,
+  `cttan_penilaian_faq` text DEFAULT NULL,
+  `cttan_penilaian_uiux_frendly` text DEFAULT NULL,
+  `cttan_penilaian_fungsionalitas` text DEFAULT NULL,
+  `cttan_penilaian_dashboard` text DEFAULT NULL,
+  `cttan_penilaian_log_usr` text DEFAULT NULL,
+  `assessment_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `penilaian_ui_uxes`
+--
+
+INSERT INTO `penilaian_ui_uxes` (`id`, `penilaian_warna`, `penilaian_logo_kotabgr`, `penilaian_logo_apk`, `penilaian_copyright_pemkot`, `penilaian_info_identitasopd`, `penilaian_info_apk`, `penilaian_faq`, `penilaian_user_friendly`, `penilaian_fungsionalitas`, `penilaian_dashboard`, `penilaian_log_user`, `cttan_penilaian_warna`, `cttan_penilaian_logo_kota`, `cttan_penilaian_logo_apk`, `cttan_penilaian_cr_pemkot`, `cttan_penilaian_identitas_odp`, `cttan_penilaian_info_apk`, `cttan_penilaian_faq`, `cttan_penilaian_uiux_frendly`, `cttan_penilaian_fungsionalitas`, `cttan_penilaian_dashboard`, `cttan_penilaian_log_usr`, `assessment_id`, `created_at`, `updated_at`) VALUES
+(1, 'sesuai', 'tidak', 'tidak', 'tidak', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'tidak', 'tidak', 'wadidau', 'wadidau', 'wawawau', 'wanjir', 'bebebel', 'cttan_penilaian_info_apk', 'wanjir wkwk', 'newncoias', 'wkaksm', 'wdwdwdwdwd', 'waduh wkwkwk', 1, '2024-05-06 20:26:56', '2024-05-06 20:26:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -193,7 +404,7 @@ CREATE TABLE `personal_access_tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `personal_access_tokens`
+-- Dumping data for table `personal_access_tokens`
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
@@ -229,12 +440,14 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (30, 'App\\Models\\User', 1, 'my-token', '31505717b89eb1f47389c8a17af6119c616b3bf37ee3112054b677d253465e83', '[\"*\"]', NULL, NULL, '2024-04-21 23:50:20', '2024-04-21 23:50:20'),
 (31, 'App\\Models\\User', 1, 'my-token', '0b8c6765435ce35b3bda9f6c006a36a990491b597bb4049647923e1556005357', '[\"*\"]', NULL, NULL, '2024-04-21 23:50:49', '2024-04-21 23:50:49'),
 (32, 'App\\Models\\User', 1, 'my-token', '55c4c64843766db4ef09466dbe99edc2b93e9386332329e85b84a201e6a2dac3', '[\"*\"]', NULL, NULL, '2024-04-21 23:51:26', '2024-04-21 23:51:26'),
-(33, 'App\\Models\\User', 2, 'my-token', '7e952157c7259b3f991d634db028b2572370bfaa045e957a5448ef5aca3758b2', '[\"*\"]', '2024-04-23 21:43:57', NULL, '2024-04-23 20:07:12', '2024-04-23 21:43:57');
+(33, 'App\\Models\\User', 2, 'my-token', '7e952157c7259b3f991d634db028b2572370bfaa045e957a5448ef5aca3758b2', '[\"*\"]', '2024-04-24 21:27:30', NULL, '2024-04-23 20:07:12', '2024-04-24 21:27:30'),
+(34, 'App\\Models\\User', 2, 'my-token', '802543745704eb62f101959701566540d6b2be4ba34c8c5d23d22ce82de6eb57', '[\"*\"]', '2024-05-01 19:20:55', NULL, '2024-04-24 21:13:33', '2024-05-01 19:20:55'),
+(35, 'App\\Models\\User', 3, 'my-token', 'e5b00569eafe5ca20dd74e4aac7b424b90396ee0f4c6906cee7ae6ca0fd626a1', '[\"*\"]', '2024-05-06 20:37:56', NULL, '2024-05-01 19:23:31', '2024-05-06 20:37:56');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -251,7 +464,7 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `slug`, `category_id`, `user_id`, `content`, `image`, `description`, `created_at`, `updated_at`) VALUES
@@ -260,7 +473,7 @@ INSERT INTO `posts` (`id`, `title`, `slug`, `category_id`, `user_id`, `content`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `post_tag`
+-- Table structure for table `post_tag`
 --
 
 CREATE TABLE `post_tag` (
@@ -269,7 +482,7 @@ CREATE TABLE `post_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `post_tag`
+-- Dumping data for table `post_tag`
 --
 
 INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
@@ -279,7 +492,7 @@ INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `programers`
+-- Table structure for table `programers`
 --
 
 CREATE TABLE `programers` (
@@ -293,7 +506,7 @@ CREATE TABLE `programers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `programers`
+-- Dumping data for table `programers`
 --
 
 INSERT INTO `programers` (`id`, `nama`, `alamat`, `telp`, `email`, `created_at`, `updated_at`) VALUES
@@ -302,7 +515,7 @@ INSERT INTO `programers` (`id`, `nama`, `alamat`, `telp`, `email`, `created_at`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sliders`
+-- Table structure for table `sliders`
 --
 
 CREATE TABLE `sliders` (
@@ -313,7 +526,7 @@ CREATE TABLE `sliders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `sliders`
+-- Dumping data for table `sliders`
 --
 
 INSERT INTO `sliders` (`id`, `image`, `created_at`, `updated_at`) VALUES
@@ -324,7 +537,36 @@ INSERT INTO `sliders` (`id`, `image`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tags`
+-- Table structure for table `statuses`
+--
+
+CREATE TABLE `statuses` (
+  `id` int(11) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `statuses`
+--
+
+INSERT INTO `statuses` (`id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Pengajuan Assessment', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(2, 'Assessment Pertama', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(3, 'Rekomendasi Assessment 1', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(4, 'Assessment Kedua', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(5, 'Rekomendasi Assessment 2', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(6, 'Evaluasi', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(7, 'Surat Lulus Assessment', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(8, 'Pembuatan Server', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(9, 'Proses Hosting dan Setting Sub-domain', '2024-04-24 08:20:21', '2024-04-24 08:20:21'),
+(10, 'Sub-domain bisa diakses', '2024-04-24 08:20:21', '2024-04-24 08:20:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
 --
 
 CREATE TABLE `tags` (
@@ -336,7 +578,7 @@ CREATE TABLE `tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `tags`
+-- Dumping data for table `tags`
 --
 
 INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
@@ -348,7 +590,40 @@ INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `tata_kelolas`
+--
+
+CREATE TABLE `tata_kelolas` (
+  `id` int(11) NOT NULL,
+  `dok_kak_tor` varchar(250) NOT NULL,
+  `laporan_dpa` varchar(250) DEFAULT NULL,
+  `sk_pengelola_apk` varchar(250) NOT NULL,
+  `sk_helpdesk_apk` varchar(250) NOT NULL,
+  `laporan_akhir` varchar(250) NOT NULL,
+  `sop` varchar(250) NOT NULL,
+  `panduan_apk` varchar(250) NOT NULL,
+  `link_video_apk` varchar(250) NOT NULL,
+  `panduan_apkserver` varchar(250) NOT NULL,
+  `dok_mnjresiko` varchar(250) NOT NULL,
+  `dok_api` varchar(250) NOT NULL,
+  `file_scapk` varchar(250) NOT NULL,
+  `assessment_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tata_kelolas`
+--
+
+INSERT INTO `tata_kelolas` (`id`, `dok_kak_tor`, `laporan_dpa`, `sk_pengelola_apk`, `sk_helpdesk_apk`, `laporan_akhir`, `sop`, `panduan_apk`, `link_video_apk`, `panduan_apkserver`, `dok_mnjresiko`, `dok_api`, `file_scapk`, `assessment_id`, `created_at`, `updated_at`) VALUES
+(1, 'pdm42OQbLIq753jGC672vipH7XjR9Pzx7fBFNFin.pdf', NULL, 'QMQUe2a3DR1shRePRLVZXGTrPBv7xmWaix2SM6Io.pdf', 'BLQflzM7TeUiFmFnat21HP8JXYRzCYlbZ7pTBcfL.pdf', 'AuZmlZ3zj9tfe8pdj8gxpBNIIRM4Q1pAbdPC0Zsu.pdf', 'OYmPzUkaWoUoPUTwAiDVHXDhp1hU6V4ZnPOCmziP.pdf', 'HecsLAeyL34m1r6ue6vGWwbEhDecKmiiKyyZV1Hj.pdf', 'wkwkwkwk', 'bTnlCvyl97wC27ElpZ5l4mlSoltbjzLRarB1ZUcM.pdf', 'Ygk9Kdim6yLvUVdr0BWhL3xqIbN4cc2XzZRuofWT.pdf', 'BqTNXhnKAcYgGkz8WoMDy7LK7z1LpGtnRtKdw6ZN.pdf', 'hjjYKnLCbma7jgNl88k6urFZWfE8Yy4YSCmZzj0i.pdf', 1, '2024-05-01 20:45:53', '2024-05-01 20:45:53'),
+(3, 'TSHC4Kg2pR9BQWvte4XBn2vbrLomNGxBExLILzrf.pdf', 'Q4SQZH5oW7S5pAvjGug0nE2cdoQGg8KW8sXyvC74.pdf', 'rWghoR9742sL5yPoi6e61QmEdydNy64zStlNRpnJ.pdf', 'WU9QfvGIPX5jC3LgS4Cf5CFODRUrUQxy71x8u8E7.pdf', 'NP0pYlW3ocTo4s9xHPE9l2E34gtYBujCTcNrbn3r.pdf', 'NRSUBhH53Vv76245jYLnubrn4BJcSdcvlg4gn5xf.pdf', 'oAHaOMe9MVh7eiqLh2LD14iycmpNNpRsnTwIDdPA.pdf', 'wkwkwkwk', '8LImeZ9vNkD31pyOrvZezj5OnS89xXImfk7WaPak.pdf', 'b1T4qnKs5E9JQAk0qXatxaqdnDg9rgOwCG4lzdfY.pdf', 'h3yYFHMK7II6421NrdFMqX43vgdJjkho6JJh6Ru8.pdf', 'YaUrnqbRFWJUEBY2NdQOYo6RCM9KcQXAhHNoRoxw.pdf', 1, '2024-05-01 21:04:00', '2024-05-01 21:04:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -364,7 +639,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -372,62 +647,128 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (2, 'Dinas ABC', 'dinasabc@gmail.com', NULL, '$2y$10$C3t29ZVMPUdS0/Xg1zQBwOB8yMRf.OXH07zqcCyI1eXw1MAt8RDqe', 'opd', NULL, '2024-04-18 19:48:41', '2024-04-18 19:48:41'),
 (3, 'Diskominfo', 'diskominfo@gmail.com', NULL, '$2y$10$Qs4woo4g2J81oaJJtLY2HeAp2FHZSsN6d716gMhyD5AtmZKBDP3nq', 'assessment', NULL, '2024-04-18 19:53:51', '2024-04-18 19:53:51');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_apks`
+--
+
+CREATE TABLE `user_apks` (
+  `id` int(11) NOT NULL,
+  `pengguna_apk` varchar(150) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_apks`
+--
+
+INSERT INTO `user_apks` (`id`, `pengguna_apk`, `created_at`, `updated_at`) VALUES
+(1, 'Aplikasi Internal Perangkat Daerah', '2024-04-24 07:11:56', '2024-04-24 07:11:56'),
+(2, 'Perangkat Daerah Pemilik Aplikasi dan Beberapa Perangkat Daerah Lain', '2024-04-24 07:11:56', '2024-04-24 07:11:56'),
+(3, 'Semua Perangkat Daerah Pemerintah Kota Bogor', '2024-04-24 07:11:56', '2024-04-24 07:11:56'),
+(4, 'Perangkat Daerah Pemilik Aplikasi dan Masyarakat', '2024-04-24 07:11:56', '2024-04-24 07:11:56'),
+(5, 'Perangkat Daerah Pemilik Aplikasi, Beberapa Perangkat Daerah Lain dan Masyarakat', '2024-04-24 07:11:56', '2024-04-24 07:11:56');
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `categories`
+-- Indexes for table `apks`
+--
+ALTER TABLE `apks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `assessments`
+--
+ALTER TABLE `assessments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `categories_slug_unique` (`slug`);
 
 --
--- Indeks untuk tabel `comments`
+-- Indexes for table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `developers`
+-- Indexes for table `developers`
 --
 ALTER TABLE `developers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `dokumens`
+--
+ALTER TABLE `dokumens`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indeks untuk tabel `menus`
+-- Indexes for table `hosting_sub_domains`
+--
+ALTER TABLE `hosting_sub_domains`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jenis_kegiatans`
+--
+ALTER TABLE `jenis_kegiatans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `menus`
 --
 ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `opds`
+-- Indexes for table `opds`
 --
 ALTER TABLE `opds`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indeks untuk tabel `personal_access_tokens`
+-- Indexes for table `penilaian_tata_kelolas`
+--
+ALTER TABLE `penilaian_tata_kelolas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `penilaian_ui_uxes`
+--
+ALTER TABLE `penilaian_ui_uxes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -435,119 +776,197 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indeks untuk tabel `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `posts_slug_unique` (`slug`);
 
 --
--- Indeks untuk tabel `programers`
+-- Indexes for table `programers`
 --
 ALTER TABLE `programers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `sliders`
+-- Indexes for table `sliders`
 --
 ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tags`
+-- Indexes for table `statuses`
+--
+ALTER TABLE `statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tags_slug_unique` (`slug`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `tata_kelolas`
+--
+ALTER TABLE `tata_kelolas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- Indexes for table `user_apks`
+--
+ALTER TABLE `user_apks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `categories`
+-- AUTO_INCREMENT for table `apks`
+--
+ALTER TABLE `apks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `assessments`
+--
+ALTER TABLE `assessments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `comments`
+-- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `developers`
+-- AUTO_INCREMENT for table `developers`
 --
 ALTER TABLE `developers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `dokumens`
+--
+ALTER TABLE `dokumens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `menus`
+-- AUTO_INCREMENT for table `hosting_sub_domains`
+--
+ALTER TABLE `hosting_sub_domains`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `jenis_kegiatans`
+--
+ALTER TABLE `jenis_kegiatans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT untuk tabel `opds`
+-- AUTO_INCREMENT for table `opds`
 --
 ALTER TABLE `opds`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `personal_access_tokens`
+-- AUTO_INCREMENT for table `penilaian_tata_kelolas`
 --
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+ALTER TABLE `penilaian_tata_kelolas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `posts`
+-- AUTO_INCREMENT for table `penilaian_ui_uxes`
+--
+ALTER TABLE `penilaian_ui_uxes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `programers`
+-- AUTO_INCREMENT for table `programers`
 --
 ALTER TABLE `programers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `sliders`
+-- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tags`
+-- AUTO_INCREMENT for table `statuses`
+--
+ALTER TABLE `statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `tata_kelolas`
+--
+ALTER TABLE `tata_kelolas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user_apks`
+--
+ALTER TABLE `user_apks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

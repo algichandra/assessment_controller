@@ -121,7 +121,20 @@ Route::prefix('assessment')->group(function () {
             Route::put('/aplikasi/update/{apk}', [App\Http\Controllers\Api\Assessment\Opd\ApkController::class, 'update']);
             Route::delete('/aplikasi/delete/{apk}', [App\Http\Controllers\Api\Assessment\Opd\ApkController::class, 'destroy']);
 
-            Route::apiResource('/assessment', App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class);
+            Route::apiResource('/assessment', App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class)->middleware('restrictRole:opd');
+
+            Route::apiResource('/hosting_subdomain', App\Http\Controllers\Api\Assessment\Opd\HostingSubDomainController::class,)->middleware('restrictRole:opd');
+
+            Route::apiResource('/dokumen', App\Http\Controllers\Api\Assessment\Opd\DokController::class,)->middleware('restrictRole:opd');
+        });
+
+        Route::prefix('assessor')->group(function () {
+
+            Route::apiResource('/tata_kelola', App\Http\Controllers\Api\Assessment\Assessor\TataKelolaController::class)->middleware('restrictRole:assessment');
+
+            Route::apiResource('/penilaian_tata_kelola', App\Http\Controllers\Api\Assessment\Assessor\PenilaianTataKelolaController::class)->middleware('restrictRole:assessment');
+
+            Route::apiResource('/penilaian_ui_ux', App\Http\Controllers\Api\Assessment\Assessor\PenilaianUiUxController::class)->middleware('restrictRole:assessment');
         });
     });
 });
