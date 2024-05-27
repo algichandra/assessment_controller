@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2024 at 09:45 AM
+-- Generation Time: May 27, 2024 at 03:36 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -221,6 +221,71 @@ INSERT INTO `jenis_kegiatans` (`id`, `jenis_kegiatan`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kontrol_akses`
+--
+
+CREATE TABLE `kontrol_akses` (
+  `id` int(11) NOT NULL,
+  `user_lvl_manej` enum('ya','tidak') NOT NULL,
+  `dshbrd_admin` enum('ya','tidak') NOT NULL,
+  `verif_token` enum('ya','tidak') NOT NULL,
+  `anti_csrf` enum('ya','tidak') NOT NULL,
+  `pnjelajah_dirt` enum('ya','tidak') NOT NULL,
+  `cttan_user_lvl_manej` text DEFAULT NULL,
+  `cttan_dshbrd_admin` text DEFAULT NULL,
+  `cttan_verif_token` text DEFAULT NULL,
+  `cttan_anti_csrf` text DEFAULT NULL,
+  `cttan_pnjelajah_dirt` text DEFAULT NULL,
+  `foto_data_validasi` varchar(150) NOT NULL,
+  `foto_dashbrd_admin` varchar(150) NOT NULL,
+  `foto_anti_csrf` varchar(150) NOT NULL,
+  `foto_penjelajahan_direktori` varchar(150) NOT NULL,
+  `assessment_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manajemen_sesis`
+--
+
+CREATE TABLE `manajemen_sesis` (
+  `id` int(11) NOT NULL,
+  `token_url` enum('ya','tidak') NOT NULL,
+  `manej_sesi` enum('ya','tidak') NOT NULL,
+  `set_sesi` enum('ya','tidak') NOT NULL,
+  `back_sesi_out` enum('ya','tidak') NOT NULL,
+  `aunten_12_jam` enum('ya','tidak') NOT NULL,
+  `satu_akun_satu_user` enum('ya','tidak') NOT NULL,
+  `satu_akun_berbagai_device` enum('ya','tidak') NOT NULL,
+  `cttan_token_url` text DEFAULT NULL,
+  `cttan_manej_sesi` text DEFAULT NULL,
+  `cttan_set_sesi` text DEFAULT NULL,
+  `cttan_back_sesi_out` text DEFAULT NULL,
+  `cttan_auten_12_jam` text DEFAULT NULL,
+  `cttan_satu_akun_satu_user` text DEFAULT NULL,
+  `cttan_satu_akun_berbagai_device` text DEFAULT NULL,
+  `foto_manej_sesi` varchar(150) NOT NULL,
+  `foto_set_sesi` varchar(150) NOT NULL,
+  `foto_aunten` varchar(150) NOT NULL,
+  `foto_satu_akun_berbagai_device` varchar(150) NOT NULL,
+  `assessment_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `manajemen_sesis`
+--
+
+INSERT INTO `manajemen_sesis` (`id`, `token_url`, `manej_sesi`, `set_sesi`, `back_sesi_out`, `aunten_12_jam`, `satu_akun_satu_user`, `satu_akun_berbagai_device`, `cttan_token_url`, `cttan_manej_sesi`, `cttan_set_sesi`, `cttan_back_sesi_out`, `cttan_auten_12_jam`, `cttan_satu_akun_satu_user`, `cttan_satu_akun_berbagai_device`, `foto_manej_sesi`, `foto_set_sesi`, `foto_aunten`, `foto_satu_akun_berbagai_device`, `assessment_id`, `created_at`, `updated_at`) VALUES
+(1, 'ya', 'ya', 'ya', 'ya', 'ya', 'ya', 'ya', 'wtkwtkwtk', 'wtkwtkwtk', 'wtkwtkwtk', 'wtkwtkwtk', 'wtkwtkwtk', 'wtkwtkwtk', 'wtkwtkwtk', 'vts0jgEktZRs53mpeIejMqPeAzDJXESeNGQqaPdx.png', 'HsUN2wuRR6rCwQuHe5xzSK13wzL317VcicxrpQi0.png', '5xt5v7vFVvakveNbuRHWRAs4VVsEEGeatunn3NYR.png', 'zNel0RUyT3vSMbMGdwgJLzeCwcBpyiBqEKFre5VR.png', 1, '2024-05-16 21:12:07', '2024-05-16 21:12:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menus`
 --
 
@@ -296,6 +361,58 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penilaian_otentifikasis`
+--
+
+CREATE TABLE `penilaian_otentifikasis` (
+  `id` int(11) NOT NULL,
+  `penilaian_login` enum('sesuai','tidak') NOT NULL,
+  `penilaian_captcha_login` enum('sesuai','tidak') NOT NULL,
+  `penilaian_cpatcha_lain` enum('sesuai','tidak') NOT NULL,
+  `penilaian_daftar` enum('sesuai','tidak') NOT NULL,
+  `penilaian_reset_password` enum('sesuai','tidak') NOT NULL,
+  `penilaian_password_8_krtr` enum('sesuai','tidak') NOT NULL,
+  `penilaian_password_besar_kecil_khusus` enum('sesuai','tidak') NOT NULL,
+  `penilaian_ukur_sandi` enum('sesuai','tidak') NOT NULL,
+  `penilaian_tampil_sembunyi_sandi` enum('sesuai','tidak') NOT NULL,
+  `penilaian_valid_email_new_user` enum('sesuai','tidak') NOT NULL,
+  `penilaian_verif_admin_new_user` enum('sesuai','tidak') NOT NULL,
+  `penilaian_exp_password_1_thn` enum('sesuai','tidak') NOT NULL,
+  `penilaian_user_dibuat_admin` enum('sesuai','tidak') NOT NULL,
+  `penilaian_reset_password_user_dibuat_admin` enum('sesuai','tidak') NOT NULL,
+  `cttan_penilaian_login` text DEFAULT NULL,
+  `cttan_penilaian_captcha_login` text DEFAULT NULL,
+  `cttan_penilaian_captcha_lain` text DEFAULT NULL,
+  `cttan_penilaian_daftar` text DEFAULT NULL,
+  `cttan_penilaian_reset_password` text DEFAULT NULL,
+  `cttan_penilaian_valid_pw_8_karakter` text DEFAULT NULL,
+  `cttan_penilaian_pw_besar_kecil_khusus` text DEFAULT NULL,
+  `cttan_penilaian_ukur_sandi` text DEFAULT NULL,
+  `cttan_penilaian_tampil_sembunyi_sandi` text DEFAULT NULL,
+  `cttan_penilaian_valid_email_new_user` text DEFAULT NULL,
+  `cttan_penilaian_verif_admin_new_user` text DEFAULT NULL,
+  `cttan_penilaian_exp_password_1_thn` text DEFAULT NULL,
+  `cttan_penilaian_user_dibuat_admin` text DEFAULT NULL,
+  `cttan_penilaian_reset_pw_user_dibuat_admin` text DEFAULT NULL,
+  `foto_valid_pw_karakter` varchar(150) NOT NULL,
+  `foto_pw_besar_kecil_khusus` varchar(150) NOT NULL,
+  `foto_exp_password` varchar(150) NOT NULL,
+  `assessment_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `penilaian_otentifikasis`
+--
+
+INSERT INTO `penilaian_otentifikasis` (`id`, `penilaian_login`, `penilaian_captcha_login`, `penilaian_cpatcha_lain`, `penilaian_daftar`, `penilaian_reset_password`, `penilaian_password_8_krtr`, `penilaian_password_besar_kecil_khusus`, `penilaian_ukur_sandi`, `penilaian_tampil_sembunyi_sandi`, `penilaian_valid_email_new_user`, `penilaian_verif_admin_new_user`, `penilaian_exp_password_1_thn`, `penilaian_user_dibuat_admin`, `penilaian_reset_password_user_dibuat_admin`, `cttan_penilaian_login`, `cttan_penilaian_captcha_login`, `cttan_penilaian_captcha_lain`, `cttan_penilaian_daftar`, `cttan_penilaian_reset_password`, `cttan_penilaian_valid_pw_8_karakter`, `cttan_penilaian_pw_besar_kecil_khusus`, `cttan_penilaian_ukur_sandi`, `cttan_penilaian_tampil_sembunyi_sandi`, `cttan_penilaian_valid_email_new_user`, `cttan_penilaian_verif_admin_new_user`, `cttan_penilaian_exp_password_1_thn`, `cttan_penilaian_user_dibuat_admin`, `cttan_penilaian_reset_pw_user_dibuat_admin`, `foto_valid_pw_karakter`, `foto_pw_besar_kecil_khusus`, `foto_exp_password`, `assessment_id`, `created_at`, `updated_at`) VALUES
+(1, 'tidak', 'tidak', 'tidak', 'tidak', 'tidak', 'tidak', 'tidak', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'wadidau', 'wadidau', NULL, 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'EjNP13opaCWMDjkCvGeuIPiLLQMj4UI1JUdo6DsJ.png', 'DO82NgIinAWHfsdk6vn8VthyzMeQIWh9hrTIpsue.jpg', 'FsRGWPNiJHaQ7H2jPMSEuLREqXlS2IOVajc1uZIo.png', 1, '2024-05-15 21:56:35', '2024-05-15 21:56:35'),
+(3, 'tidak', 'tidak', 'tidak', 'tidak', 'tidak', 'tidak', 'tidak', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'sesuai', 'wadidau', 'wadidau', NULL, 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'wadidau', 'd45oJ41LfXJZnC4QResswlNXl9HArqhzPbrBFtY2.png', 'XmqXIdRbmKONWIKGQaQxFXiCmmPS49c1qGVSvscW.jpg', 'LozBLtoi06BDTPIN7LN2OEYSdx4bhRMZ66jHpAcW.png', 1, '2024-05-16 00:20:34', '2024-05-16 00:20:34');
 
 -- --------------------------------------------------------
 
@@ -408,7 +525,7 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(1, 'App\\Models\\User', 1, 'my-token', '23c363cab62c647698caf2de93bfdf9fb6c6b88e1ee07e0aaa8c6d09e832348c', '[\"*\"]', '2024-04-23 19:15:49', NULL, '2024-04-18 18:38:53', '2024-04-23 19:15:49'),
+(1, 'App\\Models\\User', 1, 'my-token', '23c363cab62c647698caf2de93bfdf9fb6c6b88e1ee07e0aaa8c6d09e832348c', '[\"*\"]', '2024-05-26 00:07:50', NULL, '2024-04-18 18:38:53', '2024-05-26 00:07:50'),
 (2, 'App\\Models\\User', 2, 'my-token', '1088a838c4f5f2bddd80ef407946bbab84012f1f40c4a9b60905bf0ab6b0d7f1', '[\"*\"]', NULL, NULL, '2024-04-20 00:13:46', '2024-04-20 00:13:46'),
 (3, 'App\\Models\\User', 1, 'my-token', 'e2c84e2bcd76bda4e8c861e73e3f987df4f0bf8165764c4f228ef5c6fc0b03d2', '[\"*\"]', NULL, NULL, '2024-04-21 02:09:28', '2024-04-21 02:09:28'),
 (4, 'App\\Models\\User', 1, 'my-token', 'c19eb326b669569e03e7b0796aba30b430088ae3e6150582f02de2abeb65cc07', '[\"*\"]', NULL, NULL, '2024-04-21 05:40:22', '2024-04-21 05:40:22'),
@@ -442,7 +559,44 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (32, 'App\\Models\\User', 1, 'my-token', '55c4c64843766db4ef09466dbe99edc2b93e9386332329e85b84a201e6a2dac3', '[\"*\"]', NULL, NULL, '2024-04-21 23:51:26', '2024-04-21 23:51:26'),
 (33, 'App\\Models\\User', 2, 'my-token', '7e952157c7259b3f991d634db028b2572370bfaa045e957a5448ef5aca3758b2', '[\"*\"]', '2024-04-24 21:27:30', NULL, '2024-04-23 20:07:12', '2024-04-24 21:27:30'),
 (34, 'App\\Models\\User', 2, 'my-token', '802543745704eb62f101959701566540d6b2be4ba34c8c5d23d22ce82de6eb57', '[\"*\"]', '2024-05-01 19:20:55', NULL, '2024-04-24 21:13:33', '2024-05-01 19:20:55'),
-(35, 'App\\Models\\User', 3, 'my-token', 'e5b00569eafe5ca20dd74e4aac7b424b90396ee0f4c6906cee7ae6ca0fd626a1', '[\"*\"]', '2024-05-06 20:37:56', NULL, '2024-05-01 19:23:31', '2024-05-06 20:37:56');
+(35, 'App\\Models\\User', 3, 'my-token', 'e5b00569eafe5ca20dd74e4aac7b424b90396ee0f4c6906cee7ae6ca0fd626a1', '[\"*\"]', '2024-05-16 21:21:48', NULL, '2024-05-01 19:23:31', '2024-05-16 21:21:48'),
+(36, 'App\\Models\\User', 1, 'my-token', 'd29a4a708b178d55fb3dfb49566fec47b567b0316d4523042f073f03135df4e9', '[\"*\"]', NULL, NULL, '2024-05-21 19:55:59', '2024-05-21 19:55:59'),
+(37, 'App\\Models\\User', 2, 'my-token', 'd59407e695bbd7ba31dc98b79fa1718d066349cd770df087cd59c0c533ceb192', '[\"*\"]', NULL, NULL, '2024-05-21 19:56:54', '2024-05-21 19:56:54'),
+(38, 'App\\Models\\User', 1, 'my-token', 'af8ae59d32fee31e12206f6d9a488fd995f73e11ca6c6fa6a4c1b85d12d661ed', '[\"*\"]', NULL, NULL, '2024-05-24 08:07:48', '2024-05-24 08:07:48'),
+(39, 'App\\Models\\User', 1, 'my-token', 'f1188bd54cad4b4540d04a7cf2ec23f3f4eec3235ca514ec7d669d559cd66663', '[\"*\"]', NULL, NULL, '2024-05-24 08:13:47', '2024-05-24 08:13:47'),
+(40, 'App\\Models\\User', 1, 'my-token', '5523c96aab6929dac84b958cef3819606ec3f6ddaf9df5708616f768fef42826', '[\"*\"]', NULL, NULL, '2024-05-24 08:15:52', '2024-05-24 08:15:52'),
+(41, 'App\\Models\\User', 1, 'my-token', '57e4c5880f0228cb3e62591d3eb70918a1f178169d4e9040499f1775e0bd257c', '[\"*\"]', NULL, NULL, '2024-05-24 08:16:45', '2024-05-24 08:16:45'),
+(42, 'App\\Models\\User', 1, 'my-token', '7578e2bed0c5439fb92b4503ab6f812421cf220be172b2000958e93373865b54', '[\"*\"]', NULL, NULL, '2024-05-24 08:18:30', '2024-05-24 08:18:30'),
+(43, 'App\\Models\\User', 1, 'my-token', '657d6bfa25dfaad804a64637911406d06c4f1f60c9e47bc87c3540f0a8542666', '[\"*\"]', NULL, NULL, '2024-05-24 08:20:24', '2024-05-24 08:20:24'),
+(44, 'App\\Models\\User', 1, 'my-token', '45566ffa6a9dc7660fe0706876a8b3adcaced75c288ad68abaeaf07d55a82f78', '[\"*\"]', NULL, NULL, '2024-05-24 08:20:34', '2024-05-24 08:20:34'),
+(45, 'App\\Models\\User', 1, 'my-token', 'b23a4130ac4925ddf8089c4d8286b54f14d54b8ab852c94de808dd575b559dae', '[\"*\"]', NULL, NULL, '2024-05-24 08:54:55', '2024-05-24 08:54:55'),
+(46, 'App\\Models\\User', 1, 'my-token', '0fe0d93db9041ccc467ee3c5cd1e082aa55ef15e77f02101178a110abcc7dd61', '[\"*\"]', NULL, NULL, '2024-05-24 11:05:56', '2024-05-24 11:05:56'),
+(47, 'App\\Models\\User', 1, 'my-token', 'c6b75406c7809456f4131b64eec03946cca0d5652d278450e764be9391f471cf', '[\"*\"]', NULL, NULL, '2024-05-24 11:12:45', '2024-05-24 11:12:45'),
+(48, 'App\\Models\\User', 1, 'my-token', 'a341155906c630f2634c66a17f48a0229757db30a95db6d7802660d7eb0cd145', '[\"*\"]', NULL, NULL, '2024-05-24 11:15:45', '2024-05-24 11:15:45'),
+(49, 'App\\Models\\User', 1, 'my-token', 'b75474cc476c586f23f8184d140c5c7b3196af0ee05423073fc4088169298fd3', '[\"*\"]', NULL, NULL, '2024-05-24 11:18:00', '2024-05-24 11:18:00'),
+(50, 'App\\Models\\User', 1, 'my-token', '5c7a64cd36e955c48139844146504f0a8ba98f01af7b052bf0435a735d40b1be', '[\"*\"]', NULL, NULL, '2024-05-24 11:22:13', '2024-05-24 11:22:13'),
+(51, 'App\\Models\\User', 1, 'my-token', '94f58b23928ba531d2b06874505f71a57af36f71d84e5cbc70c25cc16e49d688', '[\"*\"]', NULL, NULL, '2024-05-24 11:22:18', '2024-05-24 11:22:18'),
+(52, 'App\\Models\\User', 1, 'my-token', '2ec3f2df3f7ae8123de10b5e345cdb93b9537147f64924906fbd647d3558a1db', '[\"*\"]', NULL, NULL, '2024-05-24 11:26:12', '2024-05-24 11:26:12'),
+(53, 'App\\Models\\User', 1, 'my-token', '7c9db0a3a02c11d80037559f86df951b7717d90a7f2621a04a1f5ca8540c1910', '[\"*\"]', NULL, NULL, '2024-05-24 11:28:28', '2024-05-24 11:28:28'),
+(54, 'App\\Models\\User', 1, 'my-token', '6a1ea14c967a90102054dd72269dc4b6947e5002ab1e02f64a6399efcfc6b2d9', '[\"*\"]', '2024-05-24 23:53:54', NULL, '2024-05-24 21:59:22', '2024-05-24 23:53:54'),
+(55, 'App\\Models\\User', 1, 'my-token', '6c4220f65147c398c6a3d94856c21a37a2fbfda9d12e35c114c4e74ab0199593', '[\"*\"]', NULL, NULL, '2024-05-24 21:59:27', '2024-05-24 21:59:27'),
+(56, 'App\\Models\\User', 1, 'my-token', 'ba028f83fcfa264d05f14c7faa5670998a44374f88bd43bd6665da549ada7479', '[\"*\"]', NULL, NULL, '2024-05-24 21:59:30', '2024-05-24 21:59:30'),
+(57, 'App\\Models\\User', 1, 'my-token', 'a30c63dd9ef62edce6f386c24ef8076f1a27b538702bf0997a55f9bfce021a1a', '[\"*\"]', '2024-05-26 00:09:03', NULL, '2024-05-25 21:29:40', '2024-05-26 00:09:03'),
+(58, 'App\\Models\\User', 1, 'my-token', 'a86fed9349eced017e42050bc6e4089d4120167278ef90fda01fc313c6283e52', '[\"*\"]', NULL, NULL, '2024-05-25 21:29:46', '2024-05-25 21:29:46'),
+(59, 'App\\Models\\User', 1, 'my-token', 'b6ef275fb6a75b20c1747a7f2e0f43b8b2e04ebaca544a3d4e6ce0622c58c3bf', '[\"*\"]', NULL, NULL, '2024-05-25 21:29:48', '2024-05-25 21:29:48'),
+(60, 'App\\Models\\User', 1, 'my-token', 'cfe34d5219b78fb64abdf8b8d51ba3bf2138d9f23b1e4074b99168e97790cdb1', '[\"*\"]', '2024-05-26 00:12:42', NULL, '2024-05-26 00:12:35', '2024-05-26 00:12:42'),
+(61, 'App\\Models\\User', 1, 'my-token', 'b40981eb79ea01cc15a6544dbfec32b520d64b8d8d466d62c15c21c51ee29ae4', '[\"*\"]', '2024-05-26 01:45:41', NULL, '2024-05-26 01:45:32', '2024-05-26 01:45:41'),
+(62, 'App\\Models\\User', 1, 'my-token', '06bad6966bee64e2ca96cde7aa028dce22ebb08d55018558229893e71db29f40', '[\"*\"]', '2024-05-26 05:19:48', NULL, '2024-05-26 05:01:22', '2024-05-26 05:19:48'),
+(63, 'App\\Models\\User', 1, 'my-token', '2c174510e048e3ab8e919cd441f08a696876f789219028222aa320cdba14bfe0', '[\"*\"]', NULL, NULL, '2024-05-26 05:23:19', '2024-05-26 05:23:19'),
+(64, 'App\\Models\\User', 1, 'my-token', '8a630b0ea61a4b336615b7cd333b91f965e053e18ba2245b0acf82a5993c534b', '[\"*\"]', NULL, NULL, '2024-05-26 05:26:57', '2024-05-26 05:26:57'),
+(65, 'App\\Models\\User', 1, 'my-token', '2b667867b3328de5bafcae7d0fda9f198e9528b9074bbd100470f9a5299dce29', '[\"*\"]', '2024-05-26 05:54:11', NULL, '2024-05-26 05:31:00', '2024-05-26 05:54:11'),
+(66, 'App\\Models\\User', 1, 'my-token', '47841b63bf38759db5d8971fa159e6131cd0990691e2842c7c64f6bbb75bef48', '[\"*\"]', '2024-05-26 08:16:03', NULL, '2024-05-26 05:56:25', '2024-05-26 08:16:03'),
+(67, 'App\\Models\\User', 1, 'my-token', '4e8f14bb551fed72157fd45e6daf94ee946707d4aec46d71790cdf11b3420130', '[\"*\"]', NULL, NULL, '2024-05-26 17:30:35', '2024-05-26 17:30:35'),
+(68, 'App\\Models\\User', 1, 'my-token', '3aea5c7fe98d088d004eeda71b4785440a7eef98f78c6c4971abb8c56903c3c9', '[\"*\"]', NULL, NULL, '2024-05-26 17:33:40', '2024-05-26 17:33:40'),
+(69, 'App\\Models\\User', 1, 'my-token', '2bc7e73f473b90a0c06e7207208cfd324a5de4762f453f4cfe17702602dfa376', '[\"*\"]', NULL, NULL, '2024-05-26 17:36:05', '2024-05-26 17:36:05'),
+(70, 'App\\Models\\User', 6, 'my-token', '430756900c46eddcb415dbee132940c3908084da6ce3665e0c647f61d88c0d06', '[\"*\"]', NULL, NULL, '2024-05-26 17:58:32', '2024-05-26 17:58:32'),
+(71, 'App\\Models\\User', 3, 'my-token', 'dedcca37d729981ad5104bf03807359cdf8e2a150d7d36a72f52d12ab4837448', '[\"*\"]', NULL, NULL, '2024-05-26 18:07:49', '2024-05-26 18:07:49'),
+(72, 'App\\Models\\User', 1, 'my-token', '3a199fb5d6855845a06dcc0157d38756df13dff73a9d9086bceda85177c96aa2', '[\"*\"]', '2024-05-26 18:14:38', NULL, '2024-05-26 18:14:30', '2024-05-26 18:14:38');
 
 -- --------------------------------------------------------
 
@@ -645,7 +799,15 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'admin@gmail.com', '2024-03-05 03:20:45', '$2y$10$0bUjfDZOFVd4jGucUxWrbOFQeeG.EGDHK2rSrpByzIxaFFbtpGk4y', 'admin', NULL, '2024-03-05 03:20:45', '2024-03-05 03:20:45'),
 (2, 'Dinas ABC', 'dinasabc@gmail.com', NULL, '$2y$10$C3t29ZVMPUdS0/Xg1zQBwOB8yMRf.OXH07zqcCyI1eXw1MAt8RDqe', 'opd', NULL, '2024-04-18 19:48:41', '2024-04-18 19:48:41'),
-(3, 'Diskominfo', 'diskominfo@gmail.com', NULL, '$2y$10$Qs4woo4g2J81oaJJtLY2HeAp2FHZSsN6d716gMhyD5AtmZKBDP3nq', 'assessment', NULL, '2024-04-18 19:53:51', '2024-04-18 19:53:51');
+(3, 'Diskominfo', 'diskominfo@gmail.com', NULL, '$2y$10$Qs4woo4g2J81oaJJtLY2HeAp2FHZSsN6d716gMhyD5AtmZKBDP3nq', 'assessment', NULL, '2024-04-18 19:53:51', '2024-04-18 19:53:51'),
+(5, 'test3', 'test3@gmail.com', NULL, '$2y$10$q00A9NaIVkQirOqCsHXbXOCgzeXnny7GQkMt5Z1LEE7U5Pbamizbm', 'assessment', NULL, '2024-05-26 00:07:52', '2024-05-26 08:04:45'),
+(6, 'Dinas Kesehatan', 'dinkes@gmail.com', NULL, '$2y$10$7IYuTh23EDNE.gGKeIwhJOh/uZEozwxfGfWOV200sEFehJKB/lQ82', 'opd', NULL, '2024-05-26 05:54:12', '2024-05-26 05:54:12'),
+(7, 'Dinas Sosial', 'dinsos@gmail.com', NULL, '$2y$10$B8K.C7GyPZsY7qfZHZUk1u8XrURSIGYJFKq7mxy/F/aywrJ0T.ooS', 'opd', NULL, '2024-05-26 06:08:02', '2024-05-26 06:08:02'),
+(8, 'Dinas Ketenaga Kerjaan', 'disnaker@gmail.com', NULL, '$2y$10$FpWH6YNTwleFbK5WKnyM/O.SNbDXvV8aHk9E9cEpMHq1N4BqMjI/.', 'opd', NULL, '2024-05-26 06:09:56', '2024-05-26 06:09:56'),
+(9, 'Dinas Pendidikan', 'disdik@gmail.com', NULL, '$2y$10$l2Aw/AyP6lpR8D5xyvyIzOo.bXjLfoglCGAlw4paF/Bzn5Uml/Xbm', 'opd', NULL, '2024-05-26 06:14:22', '2024-05-26 06:14:22'),
+(10, 'Dinas Lingkungan Hidup', 'dlh@gmail.com', NULL, '$2y$10$9EzOFxg0/FYz0uiEQkcF6uQNEqUkfIfRuTvlp.DFfgfcMckvIpkhK', 'opd', NULL, '2024-05-26 06:19:23', '2024-05-26 06:19:23'),
+(11, 'Dinas Pemuda dan Olahraga', 'dispora@gmail.com', NULL, '$2y$10$dRacSuxNTc7uci0YozN4/uzwSF6klA/bdvov4QYLpGC/brwz9tLK2', 'opd', NULL, '2024-05-26 06:45:51', '2024-05-26 06:45:51'),
+(12, 'Dinas Pekerjaan Umum dan Perumahan Rakyat', 'dpupr@gmail.com', NULL, '$2y$10$NpBxtZ2lPhj.7NudG5oAd.4UZxTYwM16UURDFpD8aETu65zKxE8Ja', 'opd', NULL, '2024-05-26 06:50:54', '2024-05-26 06:50:54');
 
 -- --------------------------------------------------------
 
@@ -732,6 +894,18 @@ ALTER TABLE `jenis_kegiatans`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kontrol_akses`
+--
+ALTER TABLE `kontrol_akses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `manajemen_sesis`
+--
+ALTER TABLE `manajemen_sesis`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `menus`
 --
 ALTER TABLE `menus`
@@ -754,6 +928,12 @@ ALTER TABLE `opds`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `penilaian_otentifikasis`
+--
+ALTER TABLE `penilaian_otentifikasis`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `penilaian_tata_kelolas`
@@ -885,6 +1065,18 @@ ALTER TABLE `jenis_kegiatans`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `kontrol_akses`
+--
+ALTER TABLE `kontrol_akses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `manajemen_sesis`
+--
+ALTER TABLE `manajemen_sesis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
@@ -903,6 +1095,12 @@ ALTER TABLE `opds`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `penilaian_otentifikasis`
+--
+ALTER TABLE `penilaian_otentifikasis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `penilaian_tata_kelolas`
 --
 ALTER TABLE `penilaian_tata_kelolas`
@@ -918,7 +1116,7 @@ ALTER TABLE `penilaian_ui_uxes`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -960,7 +1158,7 @@ ALTER TABLE `tata_kelolas`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_apks`

@@ -42,4 +42,19 @@ class Assessment extends Model
     {
         return $this->hasOne(Penilaian_ui_ux::class);
     }
+
+    public function penilaian_otentifikasi()
+    {
+        return $this->hasOne(Penilaian_otentifikasi::class);
+    }
+
+    public function manajemen_sesi()
+    {
+        return $this->hasOne(Manajemen_sesi::class);
+    }
+
+    public function kontrol_akses()
+    {
+        return $this->hasOne(Kontrol_akses::class);
+    }
 }

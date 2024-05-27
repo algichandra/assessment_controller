@@ -135,6 +135,12 @@ Route::prefix('assessment')->group(function () {
             Route::apiResource('/penilaian_tata_kelola', App\Http\Controllers\Api\Assessment\Assessor\PenilaianTataKelolaController::class)->middleware('restrictRole:assessment');
 
             Route::apiResource('/penilaian_ui_ux', App\Http\Controllers\Api\Assessment\Assessor\PenilaianUiUxController::class)->middleware('restrictRole:assessment');
+
+            Route::apiResource('/penilaian_otentifikasi', App\Http\Controllers\Api\Assessment\Assessor\PenilaianOtentifikasiController::class)->middleware('restrictRole:assessment');
+
+            Route::apiResource('/manajemen_sesi', App\Http\Controllers\Api\Assessment\Assessor\ManajemenSesiController::class)->middleware('restrictRole:assessment');
+
+            Route::apiResource('/kontrol_akses', App\Http\Controllers\Api\Assessment\Assessor\KontrolAksesController::class)->middleware('restrictRole:assessment');
         });
     });
 });
