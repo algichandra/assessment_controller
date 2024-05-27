@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Illuminate\Support\Facades\Log;
 
 class VerifyCsrfToken extends Middleware
 {
@@ -13,6 +15,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
 
-        '/api/assessment/admin/login'
+        '/api/assessment/login',
     ];
 }

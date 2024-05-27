@@ -49,11 +49,15 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
      *
      * @return void
      */
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
+    // public function posts()
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
 
+    public function opd()
+    {
+        return $this->hasOne(Opd::class);
+    }
     /**
      * getJWTIdentifier
      *

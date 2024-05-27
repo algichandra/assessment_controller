@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -15,20 +15,20 @@ class UserController extends Controller
     {
         $getData = User::all();
 
-        if ($getData) {
-            return response()->json(new UserResource(true, "Success", $getData), 200);
+        if ($getData->isEmpty()) {
+            return response()->json(new UserResource(false, "No Content", null), 204);
         }
 
-        return response()->json(new UserResource(false, "Empty", null), 400);
+        return response()->json(new UserResource(true, "Success", $getData), 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
-            'email'    => 'required|unique:users',
-            'password' => 'required',
-            'role'     => 'required',
+            'name'     => ['required', 'string'],
+            'email'    => ['required', 'string', 'unique:users'],
+            'password' => ['required', 'string'],
+            'role'     => ['required', 'string', Rule::in(['admin', 'opd', 'assessment'])]
         ]);
 
         if ($validator->fails()) {
@@ -74,7 +74,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name'     => 'required',
             'email'    => 'required|unique:users',
-            'password' => 'required',
+
             'role'     => 'required',
         ]);
 
@@ -86,7 +86,7 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+
             'role' => $request->role,
         ]);
 
