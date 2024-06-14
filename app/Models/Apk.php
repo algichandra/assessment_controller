@@ -44,6 +44,6 @@ class Apk extends Model
 
     public function assessment()
     {
-        return $this->hasOne(Assessment::class);
+        return $this->belongsTo(Assessment::class);
     }
 }

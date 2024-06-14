@@ -28,54 +28,43 @@ class DokController extends Controller
         return response()->json(new DefaultResource(true, 'Success', $getData), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_dok'        => ['required', 'string', 'max:150'],
-            'dok'             => ['required', 'mimes:pdf', 'max:10000'],
+            'nama_dok'        => ['required', 'array'],
+            'nama_dok.*'      => ['required', 'string', 'max:150'],
+            'dok'             => ['required', 'array'],
+            'dok.*'           => ['required', 'mimes:pdf', 'max:10000'],
             'assessment_id'   => ['required', 'integer'],
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        $getData = Dokumen::where([
-            'nama_dok'      => $request->nama_dok,
-            'assessment_id' => $request->assessment_id,
-        ])->get();
 
-        if ($getData->count() > 0) {
-            return response()->json(new DefaultResource(false, 'Duplicate', $getData), 409);
+        $dokumenData = [];
+        foreach ($request->file('dok') as $index => $file) {
+            $file->storeAs('public/assessment/dokumen', $file->hashName());
+
+            $dokumenData[] = [
+                'nama_dok'      => $request->nama_dok[$index],
+                'dok'           => $file->hashName(),
+                'assessment_id' => $request->assessment_id,
+            ];
         }
 
-        $file = $request->file('dok');
-        $file->storeAs('public/assessment/dokumen', $file->hashName());
-
-        $data = Dokumen::create([
-            'nama_dok'      => $request->nama_dok,
-            'dok'           => $file->hashName(),
-            'assessment_id' => $request->assessment_id,
-        ]);
+        // Batch insert the dokumen data
+        $data = Dokumen::insert($dokumenData);
 
         if ($data) {
-            return response()->json(new DefaultResource(true, 'Success', $data), 200);
+            return response()->json(new DefaultResource(true, 'Success', $dokumenData), 200);
         }
 
         return response()->json(new DefaultResource(false, 'Data Gagal diinput', null), 400);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $getData = Dokumen::whereId($id)->first();
@@ -87,13 +76,7 @@ class DokController extends Controller
         return response()->json(new DefaultResource(false, 'Not Found', null), 404);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [

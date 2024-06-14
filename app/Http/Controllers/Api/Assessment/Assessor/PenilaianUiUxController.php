@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Assessment\Assessor;
 
+use App\Models\Assessment;
 use App\Models\Penilaian_ui_ux;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DefaultResource;
@@ -53,11 +54,18 @@ class PenilaianUiUxController extends Controller
             'cttan_penilaian_dashboard'         => ['nullable', 'string'],
             'cttan_penilaian_log_usr'           => ['nullable', 'string'],
             'assessment_id'                     => ['required', 'integer'],
+            'hasil_assessment'                  => ['required', 'integer'],
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
+
+        $dataAssessment = Assessment::findOrFail($request->assessment_id);
+
+        $dataAssessment->update([
+            "status_id" => $request->hasil_assessment
+        ]);
 
         $data = Penilaian_ui_ux::create([
             'penilaian_warna'                   => $request->penilaian_warna,
