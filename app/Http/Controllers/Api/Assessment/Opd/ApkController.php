@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Api\Assessment\Opd;
 
 use App\Models\Apk;
+use App\Models\Opd;
+use App\Models\Developer;
+use App\Models\Programer;
+use App\Models\Assessment;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DefaultResource;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+
 
 
 class ApkController extends Controller
@@ -34,13 +39,21 @@ class ApkController extends Controller
             'nama_kegiatan'     => ['nullable', 'string', 'max:150'],
             'thn_anggaran'      => ['nullable', 'string', 'max:15'],
             'kegiatan_dpa'      => ['required', Rule::in(['dpa', 'non_dpa'])],
-            'cttan_dpa'         => ['nullable', 'string'],
             'pj'                => ['required', 'string', 'max:150'],
-            'opd_id'            => ['required', 'integer'],
+            'user_id'            => ['required', 'integer'],
             'user_apk_id'       => ['required', 'integer'],
             'jenis_kegiatan_id' => ['required', 'integer'],
-            'developer_id'      => ['required', 'integer'],
-            'programer_id'      => ['required', 'integer'],
+
+            'nama_perusahaan'     => ['required', 'string', 'max:150'],
+            'nama_pj'             => ['required', 'string', 'max:150'],
+            'alamat_developer'    => ['required', 'string'],
+            'telp_developer'      => ['required', 'string', 'max:20'],
+            'email_developer'     => ['required', 'string', 'max:30'],
+
+            'nama_programer'     => ['required', 'string', 'max:150'],
+            'alamat_programer'   => ['required', 'string'],
+            'telp_programer'     => ['required', 'string', 'max:20'],
+            'email_programer'    => ['required', 'string', 'max:30'],
         ]);
 
         if ($validator->fails()) {
@@ -64,6 +77,26 @@ class ApkController extends Controller
         if ($getData->count() > 0) {
             return response()->json(new DefaultResource(false, "Duplikat", $getData), 409);
         }
+
+        $data_developer = Developer::create([
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'nama_pj'         => $request->nama_pj,
+            'alamat'          => $request->alamat_developer,
+            'telp'            => $request->telp_developer,
+            'email'           => $request->email_developer,
+        ]);
+
+        $data_programer = Programer::create([
+            'nama' => $request->nama_programer,
+            'alamat' => $request->alamat_programer,
+            'telp' => $request->telp_programer,
+            'email' => $request->email_programer,
+        ]);
+
+        $getOpdId = Opd::where([
+            'user_id' => $request->user_id
+        ])->first();
+
         $data = Apk::create([
             'nama_apk'              => $request->nama_apk,
             'nama_kegiatan'         => $request->nama_kegiatan,
@@ -71,15 +104,19 @@ class ApkController extends Controller
             'kegiatan_dpa'          => $request->kegiatan_dpa,
             'cttan_dpa'             => $request->cttan_dpa,
             'pj'                    => $request->pj,
-            'opd_id'                => $request->opd_id,
+            'opd_id'                => $getOpdId->id,
             'user_apk_id'           => $request->user_apk_id,
             'jenis_kegiatan_id'     => $request->jenis_kegiatan_id,
-            'developer_id'          => $request->developer_id,
-            'programer_id'          => $request->programer_id,
+            'developer_id'          => $data_developer->id,
+            'programer_id'          => $data_programer->id,
         ]);
 
+        $data_assessment = Assessment::create([
+            'apk_id'    => $data->id,
+            'status_id' => 1,
+        ]);
         if ($data) {
-            return response()->json(new DefaultResource(true, 'success', $data), 200);
+            return response()->json(new DefaultResource(true, 'success', ['data' => $data, 'data_assessment' => $data_assessment]), 200);
         }
 
         return response()->json(new DefaultResource(true, 'Data Gagal diinput', null), 400);

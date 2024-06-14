@@ -20,6 +20,6 @@ class Opd extends Model
 
     public function apk()
     {
-        return $this->hasMany(Apk::class);
+        return $this->belongsTo(Apk::class);
     }
 }

@@ -126,6 +126,9 @@ Route::prefix('assessment')->group(function () {
             Route::apiResource('/hosting_subdomain', App\Http\Controllers\Api\Assessment\Opd\HostingSubDomainController::class,)->middleware('restrictRole:opd');
 
             Route::apiResource('/dokumen', App\Http\Controllers\Api\Assessment\Opd\DokController::class,)->middleware('restrictRole:opd');
+
+            Route::get('/getAssessmentById/{id}', [App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class, 'getAssessmentById'])->middleware('restrictRole:opd');
+            Route::get('/getAssessmentSelesaiById/{id}', [App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class, 'getAssessmentSelesaiById'])->middleware('restrictRole:opd');
         });
 
         Route::prefix('assessor')->group(function () {
@@ -141,6 +144,10 @@ Route::prefix('assessment')->group(function () {
             Route::apiResource('/manajemen_sesi', App\Http\Controllers\Api\Assessment\Assessor\ManajemenSesiController::class)->middleware('restrictRole:assessment');
 
             Route::apiResource('/kontrol_akses', App\Http\Controllers\Api\Assessment\Assessor\KontrolAksesController::class)->middleware('restrictRole:assessment');
+
+            Route::get('/getAssessmentOpd', [App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class, 'getAssessmentOpd'])->middleware('restrictRole:assessment');
+            Route::get('/getRiwayatAssessmentOpd', [App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class, 'getRiwayatAssessmentOpd'])->middleware('restrictRole:assessment');
+            Route::get('/getAssessmentOpdSelesai', [App\Http\Controllers\Api\Assessment\Opd\AssessmentController::class, 'getAssessmentOpdSelesai'])->middleware('restrictRole:assessment');
         });
     });
 });
